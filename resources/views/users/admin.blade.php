@@ -40,6 +40,26 @@
         </x-button>
     </form>
 
+    <h2>{{ __('user.two_factor') }}</h2>
+
+    <p>{{ __('user.two_factor_message') }}</p>
+
+    @if(auth()->user()->twoFactorAuthEnabled())
+    @else
+    <form action="{{ route('two-factor.enable') }}" method="POST">
+        @csrf()
+        <x-button>
+            {{ __('user.enable_two_factor') }}
+        </x-button>
+    </form>
+    @endif
+
+    @if (session('status') == 'two-factor-authentication-enabled')
+    <p>{{ __('user.two_factor_enabled') }}</p>
+    <div>{!! request()->user()->twoFactorQrCodeSvg() !!}</div>
+    <div>{!! request()->user()->recoveryCodes() !!}</div>
+    @endif
+
     <h2>{{ __('user.delete_account') }}</h2>
 
     <p>{{ __('user.delete_account_message') }}</p>

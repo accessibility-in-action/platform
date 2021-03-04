@@ -12,5 +12,9 @@ return [
     'account_deletion_succeeded' => 'Account deleted',
     'account_deletion_succeeded_message' => 'Your account has been deleted.',
     'account_deletion_failed' => 'Account not deleted',
-    'account_deletion_failed_message' => 'Your account could not be deleted.'
+    'account_deletion_failed_message' => 'Your account could not be deleted.',
+    'two_factor' => 'Two-factor authentication',
+    'two_factor_message' => 'When two-factor authentication is enabled, you will be prompted for a secure, random token during authentication. You may retrieve this token from your phone\'s Google Authenticator application.',
+    'two_factor_enabled' => 'Two-factor authentication has been enabled.',
+    'enable_two_factor' => 'Enable two-factor authentication'
 ];
