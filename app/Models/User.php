@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\ConsultantProfile;
 use App\Notifications\VerifyEmailNotification;
 use App\Notifications\ResetPasswordNotification;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
@@ -101,5 +102,15 @@ class User extends Authenticatable implements HasLocalePreference, MustVerifyEma
     public function twoFactorAuthEnabled()
     {
         return !is_null($this->two_factor_secret);
+    }
+
+    /**
+    * Get the consultant profile associated with the user.
+     *
+     * @return mixed
+     */
+    public function consultantProfile()
+    {
+        return $this->hasOne(ConsultantProfile::class);
     }
 }
