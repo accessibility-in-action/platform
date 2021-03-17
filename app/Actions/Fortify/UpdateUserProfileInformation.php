@@ -29,7 +29,7 @@ class UpdateUserProfileInformation implements UpdatesUserProfileInformation
                 Rule::unique('users')->ignore($user->id),
             ],
             'locale' => ['required', Rule::in(['en', 'fr'])],
-            'theme' => ['required', Rule::in(['system', 'light', 'dark'])],
+            'theme' => ['required', Rule::in(config('themes'))],
         ])->validateWithBag('updateProfileInformation');
 
         if (
@@ -47,6 +47,7 @@ class UpdateUserProfileInformation implements UpdatesUserProfileInformation
         }
 
         Cookie::queue('theme', $input['theme']);
+        Cookie::queue('locale', $input['locale']);
     }
 
     /**

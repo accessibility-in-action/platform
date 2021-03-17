@@ -1,9 +1,12 @@
 <x-app-layout>
     <x-slot name="header">
         <h1>
-            {{ __('user.my_settings') }}
+            {{ __('user.settings') }}
         </h1>
     </x-slot>
+
+    <!-- Form Validation Errors -->
+    @include('partials.validation-errors')
 
     <form action="{{ localized_route('user-profile-information.update') }}" method="POST" novalidate>
         @csrf
@@ -31,7 +34,7 @@
 
         <div class="field" x-data="previewHandler()">
             <x-label for="theme" :value="__('themes.label_theme')" />
-            <x-select x-model.string="theme" id="theme" name="theme" :options="['system' => __('themes.system'), 'light' => __('themes.light'), 'dark' => __('themes.dark')]" :selected="old('theme', $user->theme)" @change="preview()" />
+            <x-select x-model.string="theme" id="theme" name="theme" :options="$themes" :selected="old('theme', $user->theme)" @change="preview()" />
             <script>
                 function previewHandler() {
                     return {

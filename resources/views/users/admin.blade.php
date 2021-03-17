@@ -1,9 +1,12 @@
 <x-app-layout>
     <x-slot name="header">
         <h1>
-            {{ __('user.my_account') }}
+            {{ __('user.account') }}
         </h1>
     </x-slot>
+
+    <!-- Form Validation Errors -->
+    @include('partials.validation-errors')
 
     <h2>{{ __('auth.change_password') }}</h2>
 
