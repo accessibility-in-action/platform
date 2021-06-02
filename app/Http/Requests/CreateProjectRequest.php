@@ -2,12 +2,12 @@
 
 namespace App\Http\Requests;
 
-use App\Models\Organization;
-use App\Models\User;
+use App\Models\Entity;
+use App\Models\Project;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 
-class CreateOrganizationRequest extends FormRequest
+class CreateProjectRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -16,7 +16,9 @@ class CreateOrganizationRequest extends FormRequest
      */
     public function authorize()
     {
-        return true;
+        $entity = $this->route('entity');
+
+        return $entity && $this->user()->can('update', $entity);
     }
 
     /**
@@ -31,12 +33,18 @@ class CreateOrganizationRequest extends FormRequest
                 'required',
                 'string',
                 'max:255',
-                Rule::unique(Organization::class),
+                Rule::unique(Project::class),
             ],
-            'locality' => ['required', 'string', 'max:255'],
-            'region' => [
+            'start_date' => [
                 'required',
-                Rule::in(config('regions'))
+                'date'
+            ],
+            'end_date' => [
+                'date',
+                'nullable'
+            ],
+            'entity_id' => [
+                'required'
             ]
         ];
     }
@@ -49,7 +57,7 @@ class CreateOrganizationRequest extends FormRequest
     public function messages()
     {
         return [
-            'name.unique' => 'An organization with this name already exists.'
+            'name.unique' => 'A project with this name already exists.'
         ];
     }
 }
